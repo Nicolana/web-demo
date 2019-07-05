@@ -1,0 +1,32 @@
+$def with (entries)
+<ul>
+	$for article in entries:
+	<li id="$article.id">
+		<h4><a href="/edit?p=$article.id">$article.title</a></h4>
+		<div>$article.created</div>
+	</li>
+</ul>
+
+<div class="add" id="add" onclick="add()">添加博客</div>
+
+<style type="text/css">
+	.add{
+		width: 100px;
+		height: 36px;
+		border-radius: 5px;
+		cursor: pointer;
+		background: #22a2c4;
+		color: white;
+		text-align: center;
+		line-height: 36px;
+	}
+	.add:hover{
+		opacity: 0.5;
+	}
+</style>
+
+<script type="text/javascript">
+	function add(){
+		window.location.href = "/edit?m=add";
+	}
+</script>
