@@ -1,0 +1,100 @@
+$def with (entries)
+<!DOCTYPE html>
+<html>
+<head>
+	<title> 博客编辑 - demo</title>
+</head>
+<body>
+	<div id="add">
+		<h2>博客编辑</h2>
+		<div class="bar">
+			<div class="move-back btn" id="move-back">返回</div>
+			<div class="save btn" id="save">
+				保存
+			</div>
+		</div>
+		<div class="title">
+			$ if entries:
+				<input type="text" name="title" value="$entries.title">
+			$else:
+				<input type="text" name="title" />
+		</div>
+		<div class="content">
+			$if entries:
+				<textarea id="content" rows="3" cols="20" value="$entries.content"></textarea>
+			$else:
+				<textarea id="content" rows="3" cols="20" value="$entries.content"></textarea>
+		</div>
+		$if entries:
+			<div style="display: none;" id="blog-id" data-id="$entries.id"></div>
+	</div>
+</body>
+</html>
+
+<style type="text/css">
+div#add {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+div.btn {
+    /* position: absolute; */
+    display: inline-block;
+    height: 32px;
+    width: 72px;
+    /*border: 1px solid #ddd;*/
+    background-color: chocolate;
+    margin: 20px 0 20px 0;
+    line-height: 32px;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
+div.btn:hover{
+    opacity:0.5;
+}
+
+div#save {
+    right: 10px;
+    position: absolute;
+    background-color: aquamarine;
+}
+
+.title {
+    width: 100%;
+}
+
+input[type="text"] {
+    width: 100%;
+    height: 36px;
+    border: 1px solid #ddd;
+    line-height: 36px;
+    padding: 1px 5px 1px 5px;
+    text-align: center;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    color: #32373c;
+}
+
+textarea#content {
+    width: 100%;
+    min-height: 500px;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.07);
+    color: #32373c;
+    padding: 5px;
+}
+
+.bar {
+    position: relative;
+    width: 100%;
+}
+
+.bar:after {
+}
+
+</style>
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://127.0.0.1/static/edit.js"></script>

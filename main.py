@@ -80,13 +80,32 @@ class admin:
 class edit:
 	def GET(self):
 		if logged():
-			m = web.input(m=None), p = web.input(p=None)
-			if p and m:
-				entries = db.select("blog", where="")
+			i = web.input(p=None)
+			if i.p:
+				print(i)
+				entries = db.select("blog", i, where="id=$p")[0]
+				return render.edit(entries)
+			else:
+				return render.edit(entries=None)
 		else:
 			raise web.seeother("/login")
+
 	def POST(self):
-		pass
+		if logged():
+			i = web.input(p=None, title=None, content=None)
+			web.header('Content-Type', 'application/json')
+			if not i.p:
+				title = i.title if i.title != None else " "
+				contents = i.contents if i.contents != None else " "
+				db.insert("blog", title=title, contents=contents, author=1);
+				return json.dumps({'success':1, "message": "add blog success"})
+			elif i.p:
+				title = i.title if i.title != None else " "
+				contents = i.contents if i.contents != None else " "
+				db.update("blog", title=title, where="id=" + i.p, contents=contents, author=1, updated="now()");
+				return json.dumps({'success':1, "message": "add blog success"})	
+		else:
+			return "Please Login."
 
 
 if __name__ == "__main__":
