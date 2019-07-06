@@ -14,16 +14,13 @@ $def with (entries)
 			</div>
 		</div>
 		<div class="title">
-			$ if entries:
+			$if entries:
 				<input type="text" name="title" value="$entries.title">
 			$else:
 				<input type="text" name="title" />
 		</div>
-		<div class="content">
-			$if entries:
-				<textarea id="content" rows="3" cols="20" value="$entries.content"></textarea>
-			$else:
-				<textarea id="content" rows="3" cols="20" value="$entries.content"></textarea>
+			<div class="content">
+				<textarea id="content" rows="3" cols="20" value=""></textarea>
 		</div>
 		$if entries:
 			<div style="display: none;" id="blog-id" data-id="$entries.id"></div>
@@ -98,3 +95,7 @@ textarea#content {
 </style>
 <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script type="text/javascript" src="http://127.0.0.1/static/edit.js"></script>
+<script type="text/javascript">
+	$if entries:
+		addContent("$entries.contents");	
+</script>

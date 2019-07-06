@@ -2,7 +2,8 @@ $def with (entries)
 <ul>
 	$for article in entries:
 	<li id="$article.id">
-		<h4><a href="/edit?p=$article.id">$article.title</a></h4>
+		<h4><a href="/edit?p=$article.id">$article.title</a>
+			<span class="btn" id="delete" onclick="dArticle($article.id)">删除</span></h4>
 		<div>$article.created</div>
 	</li>
 </ul>
@@ -23,9 +24,52 @@ $def with (entries)
 	.add:hover{
 		opacity: 0.5;
 	}
+	span.btn>a{
+		margin-left: 15px;
+	}
+	span#delete {
+    display: inline-block;
+    height: 24px;
+    line-height: 24px;
+    color: white;
+    background: violet;
+    width: 48px;
+    text-align: center;
+    margin-left: 20px;
+    cursor: pointer;
+	}
+
+	span#delete:hover{
+	    opacity: 0.5;
+	}
+
 </style>
 <script type="text/javascript">
 	function add(){
 		window.location.href = "/edit";
+	}
+
+	function dArticle(dataid){
+		var url = "/delete";
+		var postStr = "p=" + dataid;
+		var ajax = null;
+
+		if (window.XMLHttpRequest){
+			ajax = new XMLHttpRequest();
+		} else if (window.ActiveXObject()){
+			ajax = new ActiveXObject("Microsoft.XMLHTTP");
+		} else {
+			return ;
+		}
+
+		ajax.open("POST", url, true);
+		ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		ajax.send(postStr);
+
+		ajax.onreadystatechange = function(){
+			if (ajax.readyState == 4 && ajax.status == 200){
+				location.reload(); // 刷新当前页面
+			}
+		}
 	}
 </script>

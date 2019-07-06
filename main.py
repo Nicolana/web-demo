@@ -10,7 +10,8 @@ urls = (
 	'/reset',	'reset',
 	'/post', 	'post',
 	'/admin',	'admin',
-	'/edit',	'edit'
+	'/edit',	'edit',
+	'/delete',  'delete'
 )
 app = web.application(urls, globals())
 render = web.template.render('template/')
@@ -76,6 +77,17 @@ class admin:
 			return render.admin(entries)
 		else:
 			raise web.seeother("/login")
+
+
+class delete:
+	def POST(self):
+		if logged():
+			web.header('Content-Type', 'application/json')
+			i = web.input(p=None)
+			if i.p:
+				db.delete("blog", where="id="+i.p)
+				return json.dumps({"success": 1,"message": "删除成功"})
+			return json.dumps({"success": 0, "message": "删除失败"})
 
 class edit:
 	def GET(self):
